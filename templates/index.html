@@ -1,0 +1,421 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>MovieRec | Movie Recommendation System</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='style.css') }}">
+
+</head>
+
+
+<body>
+
+
+<!-- =====================================================
+     NAVBAR
+===================================================== -->
+
+<nav class="navbar">
+
+    <div class="logo">
+
+        <span class="logo-icon">🎬</span>
+
+        <span>Movie</span><b>Rec</b>
+
+    </div>
+
+
+    <div class="nav-links">
+
+    
+</nav>
+
+
+
+<!-- =====================================================
+     HERO
+===================================================== -->
+
+<section class="hero">
+
+    <div class="hero-content">
+
+        <h1>
+            Movie
+            <span>Recommendation</span>
+            System
+        </h1>
+
+
+        <p>
+            Find movies similar to what you love
+        </p>
+
+
+        <form
+            method="POST"
+            class="search-form"
+        >
+
+            <select
+                name="movie"
+                required
+            >
+
+                <option
+                    value=""
+                    disabled
+                    {% if not selected_movie %}
+                    selected
+                    {% endif %}
+                >
+                    Select a movie
+                </option>
+
+
+                {% for movie in movies %}
+
+                <option
+                    value="{{ movie }}"
+                    {% if movie == selected_movie %}
+                    selected
+                    {% endif %}
+                >
+                    {{ movie }}
+                </option>
+
+                {% endfor %}
+
+            </select>
+
+
+            <button type="submit">
+
+                ✨ &nbsp;
+                Get Recommendations
+
+            </button>
+
+        </form>
+
+    </div>
+
+</section>
+
+
+
+{% if selected_movie %}
+
+
+<!-- =====================================================
+     SELECTED MOVIE
+===================================================== -->
+
+<section class="selected-movie">
+
+
+    <!-- POSTER -->
+
+    <div class="selected-poster">
+
+        {% if selected_movie_info and selected_movie_info.poster %}
+
+            <img
+                src="{{ selected_movie_info.poster }}"
+                alt="{{ selected_movie_info.title }}"
+            >
+
+        {% else %}
+
+            <div class="poster-placeholder">
+                🎬
+            </div>
+
+        {% endif %}
+
+    </div>
+
+
+
+    <!-- MOVIE INFORMATION -->
+
+    <div class="movie-description">
+
+
+        <h2>
+
+            {% if selected_movie_info %}
+
+                {{ selected_movie_info.title }}
+
+            {% else %}
+
+                {{ selected_movie }}
+
+            {% endif %}
+
+        </h2>
+
+
+
+        <!-- GENRES -->
+
+        <div class="genre-tags">
+
+            {% if selected_movie_info and selected_movie_info.genres %}
+
+                {% for genre in selected_movie_info.genres %}
+
+                    <span>
+                        {{ genre }}
+                    </span>
+
+                {% endfor %}
+
+            {% else %}
+
+                <span>
+                    Movie
+                </span>
+
+                <span>
+                    Recommended
+                </span>
+
+            {% endif %}
+
+        </div>
+
+
+
+        <!-- OVERVIEW -->
+
+        <p>
+
+            {% if selected_movie_info and selected_movie_info.overview %}
+
+                {{ selected_movie_info.overview }}
+
+            {% else %}
+
+                Discover movies similar to
+                <strong>{{ selected_movie }}</strong>
+                using content-based recommendation.
+
+            {% endif %}
+
+        </p>
+
+    </div>
+
+
+
+    <!-- MOVIE STATS -->
+
+    <div class="movie-stats">
+
+
+        <!-- RATING -->
+
+        <div class="stat">
+
+            <span>★</span>
+
+            <small>
+                Rating
+            </small>
+
+            <strong>
+
+                {% if selected_movie_info and selected_movie_info.rating %}
+
+                    {{ "%.1f"|format(selected_movie_info.rating) }}
+
+                {% else %}
+
+                    --
+
+                {% endif %}
+
+            </strong>
+
+        </div>
+
+
+
+        <!-- RUNTIME -->
+
+        <div class="stat">
+
+            <span>◷</span>
+
+            <small>
+                Runtime
+            </small>
+
+            <strong>
+
+                {% if selected_movie_info and selected_movie_info.runtime %}
+
+                    {{ selected_movie_info.runtime }} min
+
+                {% else %}
+
+                    --
+
+                {% endif %}
+
+            </strong>
+
+        </div>
+
+
+
+        <!-- RELEASE DATE -->
+
+        <div class="stat">
+
+            <span>✦</span>
+
+            <small>
+                Release Date
+            </small>
+
+            <strong>
+
+                {% if selected_movie_info and selected_movie_info.release_date %}
+
+                    {{ selected_movie_info.release_date }}
+
+                {% else %}
+
+                    --
+
+                {% endif %}
+
+            </strong>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+
+<!-- =====================================================
+     RECOMMENDATIONS
+===================================================== -->
+
+<section class="recommendations">
+
+
+    <h2>
+        Recommended For You
+    </h2>
+
+
+    <p class="subtitle">
+        Based on content similarity
+    </p>
+
+
+
+    <div class="movie-grid">
+
+
+        {% for movie in recommendations %}
+
+
+        <div class="movie-card">
+
+
+            <!-- POSTER -->
+
+            <div class="card-poster">
+
+                {% if movie.poster %}
+
+                    <img
+                        src="{{ movie.poster }}"
+                        alt="{{ movie.title }}"
+                    >
+
+                {% else %}
+
+                    <div class="poster-placeholder">
+                        🎬
+                    </div>
+
+                {% endif %}
+
+            </div>
+
+
+
+            <!-- CARD INFORMATION -->
+
+            <div class="card-content">
+
+
+                <h3>
+                    {{ movie.title }}
+                </h3>
+
+
+
+                <!-- GENRES -->
+
+                <div class="card-tags">
+
+                    {% for genre in movie.genre.split(',')[:3] %}
+
+                        <span>
+                            {{ genre.strip() }}
+                        </span>
+
+                    {% endfor %}
+
+                </div>
+
+
+
+                <!-- SIMILARITY -->
+
+                <div class="match">
+
+                    <span>●</span>
+
+                    {{ movie.score }}% Match
+
+                </div>
+
+
+            </div>
+
+        </div>
+
+
+        {% endfor %}
+
+
+    </div>
+
+</section>
+
+
+{% endif %}
+
+
+</body>
+
+</html>

@@ -1,0 +1,616 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    background: #050b16;
+    color: #f4f6ff;
+}
+
+
+/* =========================
+   NAVBAR
+========================= */
+
+.navbar {
+    height: 78px;
+    padding: 0 5%;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    background: #091322;
+    border-bottom: 1px solid #203451;
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+
+    font-size: 24px;
+    font-weight: 700;
+}
+
+.logo-icon {
+    margin-right: 8px;
+}
+
+.logo b {
+    color: #586cff;
+}
+
+
+/* =========================
+   NAV LINKS
+========================= */
+
+.nav-links {
+    display: flex;
+    align-items: center;
+    gap: 30px;
+}
+
+.nav-links a {
+    color: #9aabc5;
+    text-decoration: none;
+    font-size: 14px;
+}
+
+.nav-links a:hover,
+.nav-links a.active {
+    color: white;
+}
+
+.theme-btn {
+    background: transparent;
+    border: none;
+    color: white;
+    font-size: 21px;
+    cursor: pointer;
+}
+
+
+/* =========================
+   HERO
+========================= */
+
+.hero {
+    min-height: 420px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    position: relative;
+
+    background:
+        radial-gradient(
+            circle at 50% 35%,
+            rgba(48, 83, 130, 0.55),
+            transparent 45%
+        ),
+        linear-gradient(
+            180deg,
+            #101f34 0%,
+            #07111f 65%,
+            #050b16 100%
+        );
+
+    overflow: hidden;
+}
+
+
+/* cinematic light */
+
+.hero::before {
+    content: "";
+
+    position: absolute;
+
+    width: 700px;
+    height: 400px;
+
+    left: 50%;
+    top: 0;
+
+    transform: translateX(-50%);
+
+    background:
+        radial-gradient(
+            ellipse,
+            rgba(86, 139, 190, 0.22),
+            transparent 65%
+        );
+
+    pointer-events: none;
+}
+
+
+/* dark bottom */
+
+.hero::after {
+    content: "";
+
+    position: absolute;
+
+    left: 0;
+    right: 0;
+    bottom: 0;
+
+    height: 180px;
+
+    background:
+        linear-gradient(
+            transparent,
+            rgba(2, 7, 14, 0.85)
+        );
+
+    pointer-events: none;
+}
+
+
+/* =========================
+   HERO CONTENT
+========================= */
+
+.hero-content {
+    position: relative;
+    z-index: 2;
+
+    text-align: center;
+
+    width: 100%;
+    max-width: 850px;
+
+    padding: 30px 20px;
+}
+
+.hero h1 {
+    font-size: 40px;
+    font-weight: 700;
+
+    margin-bottom: 10px;
+}
+
+.hero h1 span {
+    color: #6677ff;
+}
+
+.hero p {
+    font-size: 17px;
+    color: #b4c3da;
+
+    margin-bottom: 25px;
+}
+
+
+/* =========================
+   SEARCH
+========================= */
+
+.search-form {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    gap: 10px;
+}
+
+.search-form select {
+    width: 390px;
+    height: 46px;
+
+    padding: 0 14px;
+
+    border-radius: 7px;
+    border: 1px solid #304563;
+
+    background: #101d30;
+    color: white;
+
+    font-size: 14px;
+
+    outline: none;
+}
+
+.search-form select:focus {
+    border-color: #6677ff;
+}
+
+.search-form button {
+    height: 46px;
+
+    padding: 0 22px;
+
+    border: none;
+    border-radius: 7px;
+
+    background: linear-gradient(
+        135deg,
+        #586cff,
+        #7358ed
+    );
+
+    color: white;
+
+    font-size: 14px;
+    font-weight: 600;
+
+    cursor: pointer;
+
+    transition: 0.25s;
+}
+
+.search-form button:hover {
+    transform: translateY(-2px);
+
+    box-shadow:
+        0 8px 25px rgba(88, 108, 255, 0.3);
+}
+
+
+/* =========================
+   SELECTED MOVIE
+========================= */
+
+.selected-movie {
+    width: 90%;
+    max-width: 1150px;
+
+    margin: 28px auto 0;
+
+    min-height: 180px;
+
+    display: flex;
+    align-items: center;
+
+    padding: 18px;
+
+    background: #0d192b;
+
+    border: 1px solid #203451;
+
+    border-radius: 10px;
+}
+
+
+/* =========================
+   POSTER
+========================= */
+
+.selected-poster {
+    width: 115px;
+    height: 150px;
+
+    flex-shrink: 0;
+
+    overflow: hidden;
+
+    border-radius: 6px;
+}
+
+.selected-poster img {
+    width: 100%;
+    height: 100%;
+
+    object-fit: cover;
+}
+
+.poster-placeholder {
+    width: 100%;
+    height: 100%;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    background: linear-gradient(
+        145deg,
+        #1c3150,
+        #0c1626
+    );
+
+    font-size: 35px;
+}
+
+
+/* =========================
+   DESCRIPTION
+========================= */
+
+.movie-description {
+    flex: 1;
+
+    padding: 0 25px;
+}
+
+.movie-description h2 {
+    font-size: 23px;
+
+    margin-bottom: 10px;
+}
+
+.movie-description p {
+    color: #a8b7cf;
+
+    font-size: 13px;
+
+    line-height: 1.6;
+
+    margin-top: 13px;
+}
+
+.genre-tags {
+    display: flex;
+    gap: 7px;
+}
+
+.genre-tags span {
+    background: #263957;
+
+    color: #c5d3eb;
+
+    padding: 5px 10px;
+
+    border-radius: 20px;
+
+    font-size: 10px;
+}
+
+
+/* =========================
+   STATS
+========================= */
+
+.movie-stats {
+    width: 220px;
+
+    padding-left: 25px;
+
+    border-left: 1px solid #263957;
+}
+
+.stat {
+    display: grid;
+
+    grid-template-columns:
+        25px 90px 1fr;
+
+    align-items: center;
+
+    margin-bottom: 16px;
+}
+
+.stat span {
+    color: #7888ff;
+}
+
+.stat small {
+    color: #8fa0bb;
+}
+
+.stat strong {
+    color: white;
+
+    font-size: 12px;
+}
+
+
+/* =========================
+   RECOMMENDATIONS
+========================= */
+
+.recommendations {
+    width: 90%;
+    max-width: 1150px;
+
+    margin: 28px auto 50px;
+}
+
+.recommendations h2 {
+    font-size: 22px;
+
+    margin-bottom: 5px;
+}
+
+.subtitle {
+    color: #8294b1;
+
+    font-size: 12px;
+
+    margin-bottom: 18px;
+}
+
+
+/* =========================
+   MOVIE GRID
+========================= */
+
+.movie-grid {
+    display: grid;
+
+    grid-template-columns:
+        repeat(5, 1fr);
+
+    gap: 16px;
+}
+
+
+/* =========================
+   MOVIE CARD
+========================= */
+
+.movie-card {
+    background: #0d192b;
+
+    border: 1px solid #203451;
+
+    border-radius: 8px;
+
+    overflow: hidden;
+
+    transition: 0.25s;
+}
+
+.movie-card:hover {
+    transform: translateY(-5px);
+
+    border-color: #586cff;
+
+    box-shadow:
+        0 10px 30px rgba(0, 0, 0, 0.35);
+}
+
+
+/* =========================
+   CARD POSTER
+========================= */
+
+.card-poster {
+    width: 100%;
+    height: 250px;
+
+    overflow: hidden;
+
+    background: #15243a;
+}
+
+.card-poster img {
+    width: 100%;
+    height: 100%;
+
+    object-fit: cover;
+}
+
+
+/* =========================
+   CARD CONTENT
+========================= */
+
+.card-content {
+    padding: 12px;
+}
+
+.card-content h3 {
+    font-size: 14px;
+
+    margin-bottom: 9px;
+
+    line-height: 1.4;
+}
+
+.card-tags {
+    display: flex;
+
+    flex-wrap: wrap;
+
+    gap: 5px;
+}
+
+.card-tags span {
+    padding: 4px 7px;
+
+    border-radius: 15px;
+
+    background: #263957;
+
+    color: #bdcbe2;
+
+    font-size: 9px;
+}
+
+.match {
+    margin-top: 10px;
+
+    color: #7283ff;
+
+    font-size: 11px;
+}
+
+.match span {
+    color: #6174ff;
+}
+
+
+/* =========================
+   RESPONSIVE
+========================= */
+
+@media (max-width: 900px) {
+
+    .movie-grid {
+        grid-template-columns:
+            repeat(3, 1fr);
+    }
+
+    .movie-stats {
+        width: 190px;
+    }
+}
+
+
+@media (max-width: 650px) {
+
+    .navbar {
+        padding: 0 20px;
+    }
+
+    .nav-links {
+        gap: 15px;
+    }
+
+    .hero h1 {
+        font-size: 28px;
+    }
+
+    .search-form {
+        flex-direction: column;
+    }
+
+    .search-form select,
+    .search-form button {
+        width: 280px;
+    }
+
+    .selected-movie {
+        flex-direction: column;
+
+        text-align: center;
+
+        gap: 18px;
+    }
+
+    .movie-description {
+        padding: 0;
+    }
+
+    .genre-tags {
+        justify-content: center;
+    }
+
+    .movie-stats {
+        width: 100%;
+
+        border-left: none;
+        border-top: 1px solid #263957;
+
+        padding: 18px 0 0;
+    }
+
+    .movie-grid {
+        grid-template-columns:
+            repeat(2, 1fr);
+    }
+}
+
+
+@media (max-width: 400px) {
+
+    .movie-grid {
+        grid-template-columns: 1fr;
+    }
+}
